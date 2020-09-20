@@ -9,6 +9,10 @@
   "author": "Jonathan Tuta",
   "license": "ISC",
   "dependencies": {
-    "expressway": "github:breachofmind/expressway"
+    "express": "^4.17.1",
+    "jshashes": "^1.0.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

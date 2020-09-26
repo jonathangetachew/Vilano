@@ -9,6 +9,7 @@
   "author": "Jonathan Tuta",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "jshashes": "^1.0.8"
   },

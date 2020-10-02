@@ -7,7 +7,8 @@ const app = new App({
   target: document.body,
   props: {
     name: 'Viola',
-    passwords: [],
+    passwords: Promise.resolve([]),
+    errorMessage: 'Unable to fetch Passwords.',
   },
 });
 

@@ -2,9 +2,10 @@
   import { onMount } from 'svelte';
 
   export let name;
+  export let errorMessage;
   export let passwords;
 
-  let masterPassword;
+  let masterPassword = '';
 
   onMount(async () => {
     const res = await fetch('http://localhost:3000');
@@ -16,19 +17,19 @@
       `http://localhost:3000/pass?master=${masterPassword}`
     );
 
-    const pwds = await res.json();
-
     if (res.ok) {
-      console.log(pwds);
-      return pwds;
+      return res.json();
     } else {
-      throw new Error(text);
+      throw new Error(errorMessage);
     }
   }
 
   function handleApiEvent(e) {
     e.preventDefault();
-    if (masterPassword) passwords = getPasswords();
+    if (masterPassword) {
+      passwords = getPasswords();
+      console.log('password: ' + passwords);
+    }
   }
 </script>
 
@@ -115,6 +116,11 @@
     margin-top: 0.3em;
   }
 
+  .loader {
+    background-color: var(--primary-color);
+    margin-top: 1.5em;
+  }
+
   @media (min-width: 640px) {
     main {
       max-width: none;
@@ -123,6 +129,10 @@
     .generated {
       max-width: 800px;
       margin: inherit;
+    }
+
+    .generated p {
+      margin-top: 1.5em;
     }
   }
 
@@ -165,7 +175,7 @@
   </form>
   <div class="generated">
     {#await passwords}
-      <img src="assets/loading.svg" alt="Loading passwords..." />
+      <img src="assets/loading.svg" class="loader" alt="Loading passwords..." />
     {:then pwds}
       {#each pwds as pwd, i}
         <div class="generatedPassword">

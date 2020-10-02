@@ -6,11 +6,26 @@
   export let passwords;
 
   let masterPassword = '';
+  let customService = '';
+  let customPassword = {};
+  let showCustomPasswordOutput = false;
 
   onMount(async () => {
     const res = await fetch('http://localhost:3000');
-    console.log(await res.json());
+    console.log(`Backend working? ${res.ok}`);
   });
+
+  async function getCustomPassword() {
+    const res = await fetch(
+      `http://localhost:3000/pass/custom?master=${masterPassword}&service=${customService}`
+    );
+
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error(errorMessage);
+    }
+  }
 
   async function getPasswords() {
     const res = await fetch(
@@ -28,7 +43,14 @@
     e.preventDefault();
     if (masterPassword) {
       passwords = getPasswords();
-      console.log('password: ' + passwords);
+    }
+  }
+
+  function handleCustomPasswordApiEvent(e) {
+    e.preventDefault();
+    if (customService) {
+      customPassword = getCustomPassword();
+      showCustomPasswordOutput = true;
     }
   }
 </script>
@@ -63,30 +85,35 @@
     outline: none !important;
   }
 
-  #masterPasswordField {
+  #masterPasswordField,
+  #customPasswordField {
     width: 40%;
     border-color: var(--primary-color);
   }
 
-  #masterPasswordField:focus {
+  #masterPasswordField:focus,
+  #customPasswordField:focus {
     border-color: var(--secondary-color) !important;
   }
 
-  #generateButton {
+  #generateButton,
+  #generateCustomPasswordButton {
     cursor: pointer;
     border-color: var(--primary-color);
   }
 
-  #generateButton:hover {
+  #generateButton:hover,
+  #generateCustomPasswordButton:hover {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
     color: var(--text-color);
   }
 
-  .masterPasswordForm {
-    margin-top: 2em;
+  .masterPasswordForm,
+  .customPasswordForm {
     max-width: 800px;
     margin: inherit;
+    margin-top: 2em;
   }
 
   .generatedPassword {
@@ -162,17 +189,16 @@
 <main>
   <h1>Welcome to {name}!</h1>
   <p>Generate your passwords.</p>
-  <form
-    class="masterPasswordForm"
-    method="GET"
-    on:submit|preventDefault={handleApiEvent}>
-    <input
-      type="text"
-      placeholder="Master Password"
-      id="masterPasswordField"
-      bind:value={masterPassword} />
-    <button id="generateButton">Generate</button>
-  </form>
+  <div class="masterPasswordForm">
+    <form method="GET" on:submit|preventDefault={handleApiEvent}>
+      <input
+        type="text"
+        placeholder="Master Password"
+        id="masterPasswordField"
+        bind:value={masterPassword} />
+      <button id="generateButton">Generate</button>
+    </form>
+  </div>
   <div class="generated">
     {#await passwords}
       <img src="assets/loading.svg" class="loader" alt="Loading passwords..." />
@@ -189,8 +215,44 @@
           </button>
         </div>
       {/each}
-      {#if passwords.length > 0}
-        <div class="customPassword">Custom</div>
+      {#if pwds.length > 0}
+        <div class="customPasswordForm">
+          <form
+            method="GET"
+            on:submit|preventDefault={handleCustomPasswordApiEvent}>
+            <input
+              type="text"
+              placeholder="Custom Service"
+              id="customPasswordField"
+              bind:value={customService} />
+            <button id="generateCustomPasswordButton">Generate</button>
+          </form>
+        </div>
+        {#if showCustomPasswordOutput}
+          {#await customPassword}
+            <img
+              src="assets/loading.svg"
+              class="loader"
+              alt="Loading password..." />
+          {:then pwd}
+            <div class="generatedPassword">
+              <span>{pwd[0].service}</span>
+              <input
+                type="text"
+                id="pwd{pwd[0].service}"
+                value={pwd[0].password}
+                readonly />
+              <button
+                class="clipboard"
+                data-clipboard-target="#pwd{pwd[0].service}"
+                title="Copy to Clipboard">
+                <img src="assets/copy.svg" alt="Copy to clipboard" />
+              </button>
+            </div>
+          {:catch error}
+            <p>{error.message}</p>
+          {/await}
+        {/if}
       {/if}
     {:catch error}
       <p>{error.message}</p>

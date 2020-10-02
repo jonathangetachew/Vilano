@@ -11,6 +11,17 @@ const corsOptions = {
   optionsSuccessStatus: 200, // for legacy browser support
 };
 
+function generatePassword(master, service) {
+  const val = {};
+
+  // Append master password to the service name for generating
+  // password based on the master
+  val['service'] = service;
+  val['password'] = hash.b64(master + service).slice(0, 20);
+
+  return val;
+}
+
 app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
@@ -22,14 +33,21 @@ app.get('/pass', (req, res) => {
   const master = req.query.master;
   const services = fs.readFileSync('services.txt').toString().split('\r\n');
   const response = [];
+
   services.map((service) => {
-    const val = {};
-    // Append master password to the service name for generating
-    // password based on the master
-    val['service'] = service;
-    val['password'] = hash.b64(master + service).slice(0, 20);
-    response.push(val);
+    response.push(generatePassword(master, service));
   });
+
+  res.json(response);
+});
+
+app.get('/pass/custom', (req, res) => {
+  const master = req.query.master;
+  const customService = req.query.service;
+  const response = [];
+
+  response.push(generatePassword(master, customService));
+
   res.json(response);
 });
 

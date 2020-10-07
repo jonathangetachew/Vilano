@@ -9,4 +9,4 @@ This is my personal project for generating hashed passwords from one master pass
 - [x] express
 - [x] jshashes
 - [x] clipboard.js
-- [ ] Vercel
+- [x] Vercel

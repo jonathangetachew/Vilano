@@ -6,7 +6,7 @@ new ClipboardJS('.clipboard');
 const app = new App({
   target: document.body,
   props: {
-    name: 'Viola',
+    name: 'Vilano',
     apiUrl: __vilano.env.URL,
     passwords: Promise.resolve([]),
     errorMessage: 'Unable to fetch Passwords.',

@@ -1,13 +1,17 @@
+require('custom-env').env(true);
+
 const express = require('express');
 const cors = require('cors');
 const hashes = require('jshashes');
 const fs = require('fs');
 
+const allowedUrl = process.env.URL;
+
 const app = express();
 const port = 3000;
 const hash = new hashes.SHA512();
 const corsOptions = {
-  origin: 'http://localhost:5000',
+  origin: allowedUrl,
   optionsSuccessStatus: 200, // for legacy browser support
 };
 

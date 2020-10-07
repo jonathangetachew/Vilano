@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
 
   export let name;
+  export let apiUrl;
   export let errorMessage;
   export let passwords;
 
@@ -11,13 +12,13 @@
   let showCustomPasswordOutput = false;
 
   onMount(async () => {
-    const res = await fetch('http://localhost:3000');
+    const res = await fetch(apiUrl);
     console.log(`Backend working? ${res.ok}`);
   });
 
   async function getCustomPassword() {
     const res = await fetch(
-      `http://localhost:3000/pass/custom?master=${masterPassword}&service=${customService}`
+      `${apiUrl}/pass/custom?master=${masterPassword}&service=${customService}`
     );
 
     if (res.ok) {
@@ -28,9 +29,7 @@
   }
 
   async function getPasswords() {
-    const res = await fetch(
-      `http://localhost:3000/pass?master=${masterPassword}`
-    );
+    const res = await fetch(`${apiUrl}/pass?master=${masterPassword}`);
 
     if (res.ok) {
       return res.json();
@@ -182,6 +181,10 @@
 
     #masterPasswordField {
       width: 80%;
+    }
+
+    .generated {
+      margin-top: 2em;
     }
   }
 </style>

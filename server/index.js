@@ -3,7 +3,6 @@ require('custom-env').env(true);
 const express = require('express');
 const cors = require('cors');
 const hashes = require('jshashes');
-const fs = require('fs');
 const db = require('./db');
 
 const allowedUrl = process.env.URL;

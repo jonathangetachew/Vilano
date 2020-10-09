@@ -13,7 +13,7 @@
 
   onMount(async () => {
     const res = await fetch(apiUrl);
-    console.log(`Backend working? ${res.ok}`);
+    console.log(`Backend at (${apiUrl}) working? ${res.ok}`);
   });
 
   async function getCustomPassword() {

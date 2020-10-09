@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const hashes = require('jshashes');
 const fs = require('fs');
+const db = require('./db');
 
 const allowedUrl = process.env.URL;
 
@@ -26,6 +27,21 @@ function generatePassword(master, service) {
   return val;
 }
 
+async function getServices() {
+  const services = [];
+
+  await db
+    .collection('services')
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        services.push(doc.data().service);
+      });
+    });
+
+  return services;
+}
+
 app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
@@ -33,12 +49,12 @@ app.get('/', (req, res) => {
 });
 
 // Generate password for available services based on a master password
-app.get('/pass', (req, res) => {
+app.get('/pass', async (req, res) => {
   const master = req.query.master;
-  const services = fs.readFileSync('services.txt').toString().split('\r\n');
+  const services = await getServices();
   const response = [];
 
-  services.map((service) => {
+  services.sort().map((service) => {
     response.push(generatePassword(master, service));
   });
 

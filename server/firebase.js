@@ -1,9 +1,9 @@
 const firebase = require('firebase-admin');
 
-const config = require('./serviceAccountKey');
+const { getDecryptedSecret } = require('./Decrypt');
 
 firebase.initializeApp({
-  credential: firebase.credential.cert(config),
+  credential: firebase.credential.cert(getDecryptedSecret()),
   databaseURL: process.env.DATABASE_URL,
 });
 

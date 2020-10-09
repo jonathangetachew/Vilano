@@ -7,7 +7,7 @@ const app = new App({
   target: document.body,
   props: {
     name: 'Vilano',
-    apiUrl: __vilano.env.URL,
+    apiUrl: __vilano.env.API_URL,
     passwords: Promise.resolve([]),
     errorMessage: 'Unable to fetch Passwords.',
   },

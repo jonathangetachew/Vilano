@@ -7,7 +7,7 @@ const app = new App({
   target: document.body,
   props: {
     name: 'Vilano',
-    apiUrl: __vilano.env.API_URL,
+    apiUrl: 'https://vilano-api.vercel.app',
     passwords: Promise.resolve([]),
     errorMessage: 'Unable to fetch Passwords.',
   },

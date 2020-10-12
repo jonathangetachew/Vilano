@@ -5,13 +5,13 @@ const cors = require('cors');
 const hashes = require('jshashes');
 const db = require('./db');
 
-const allowedUrl = process.env.URL;
+const allowedUrls = ['http://localhost:5000', process.env.URL];
 
 const app = express();
 const port = 3000;
 const hash = new hashes.SHA512();
 const corsOptions = {
-  origin: allowedUrl,
+  origin: allowedUrls,
   optionsSuccessStatus: 200, // for legacy browser support
 };
 

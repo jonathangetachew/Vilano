@@ -119,7 +119,7 @@
               alt="Loading password..."
             />
           {:then pwd}
-            <div class="generatedPassword">
+            <div class="generatedPassword spacer">
               <div class="form-group">
                 <span>{pwd[0].service}</span>
                 <input
@@ -190,7 +190,7 @@
       font: inherit;
       box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
       border: 0;
-      outline: 0;
+      outline: 1px solid $input-border;
       padding: 22px 18px;
 
       &::placeholder {
@@ -347,9 +347,14 @@
     .generated {
       max-width: 400px;
       margin: inherit;
+      margin-bottom: 2em;
 
       p {
         margin-top: 1.5em;
+      }
+
+      .spacer {
+        margin-bottom: 4em;
       }
     }
   }
@@ -379,6 +384,11 @@
 
     .generated {
       margin-top: 2em;
+      margin-bottom: 2em;
+
+      .spacer {
+        margin-bottom: 4em;
+      }
     }
     .customPasswordField {
       width: 80%;

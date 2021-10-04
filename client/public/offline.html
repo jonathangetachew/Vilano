@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width,initial-scale=1.0'>
 
     <title>Vilano | Password Generator</title>
 
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="description" content="Vilano - Password Generator" />
+    <link rel="manifest" href="/manifest.json">
+    <meta name="description" content="Vilano - Password Generator">
     <meta name="theme-color" content="#FF785A" />
 
     <!-- iOS Support -->
@@ -21,32 +22,24 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="/global.css" />
     <link rel="stylesheet" href="/build/bundle.css" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Make App installable -->
-    <script
-      type="module"
-      src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"
-    ></script>
-    <script defer src="/build/bundle.js"></script>
+    <style>
+      h3 {
+        font-family: 'Open Sans', sans-serif;
+        color: #FF785A;
+      }
+    </style>
   </head>
 
   <body>
-    <noscript>
-      <div>Oops! Javascript required here! Allow it and try again!</div>
-    </noscript>
-
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("/service-worker.js").then((reg) => {
-            console.log("Service worker registered.", reg);
-          });
-        });
-      }
-    </script>
+    <h3>
+      Oops, you appear to be offline, this app requires an internet
+      connection.
+    </h3>
   </body>
 </html>

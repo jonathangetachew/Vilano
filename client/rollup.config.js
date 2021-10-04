@@ -5,6 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import replace from '@rollup/plugin-replace';
 import { config } from 'dotenv';
+import sveltePreprocess from 'svelte-preprocess';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -53,6 +54,8 @@ export default {
     }),
 
     svelte({
+      // enable svelte-preprocess to work with scss styling
+      preprocess: sveltePreprocess(),
       // enable run-time checks when not in production
       dev: !production,
       // we'll extract any component CSS out into

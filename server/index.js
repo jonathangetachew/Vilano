@@ -20,8 +20,8 @@ function generatePassword(master, service) {
 
   // Append master password to the service name for generating
   // password based on the master
-  val['service'] = service;
-  val['password'] = hash.b64(master + service).slice(0, 20);
+  val.service = service;
+  val.password = hash.b64(master + service).slice(0, 20);
 
   return val;
 }
@@ -49,19 +49,19 @@ app.get('/', (req, res) => {
 
 // Generate password for available services based on a master password
 app.get('/pass', async (req, res) => {
-  const master = req.query.master;
+  const { master } = req.query;
   const services = await getServices();
   const response = [];
 
-  services.sort().map((service) => {
-    response.push(generatePassword(master, service));
-  });
+  services
+    .sort()
+    .map((service) => response.push(generatePassword(master, service)));
 
   res.json(response);
 });
 
 app.get('/pass/custom', (req, res) => {
-  const master = req.query.master;
+  const { master } = req.query;
   const customService = req.query.service;
   const response = [];
 
@@ -71,5 +71,6 @@ app.get('/pass/custom', (req, res) => {
 });
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`App running on http:localhost:${port}`);
 });

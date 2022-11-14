@@ -5,7 +5,7 @@ const cors = require('cors');
 const hashes = require('jshashes');
 const db = require('./db');
 
-const allowedUrls = ['http://localhost:5000', 'https://vilano.vercel.app'];
+const allowedUrls = ['http://localhost:8080', 'https://vilano.vercel.app'];
 
 const app = express();
 const port = 3000;

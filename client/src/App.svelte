@@ -6,7 +6,7 @@
   export let errorMessage;
   export let passwords;
 
-  let masterPassword = '';
+  let mainPassword = '';
   let customService = '';
   let customPassword = {};
   let showCustomPasswordOutput = false;
@@ -18,7 +18,7 @@
 
   async function getCustomPassword() {
     const res = await fetch(
-      `${apiUrl}/pass/custom?master=${masterPassword}&service=${customService}`
+      `${apiUrl}/pass/custom?main=${mainPassword}&service=${customService}`
     );
 
     if (res.ok) {
@@ -29,7 +29,7 @@
   }
 
   async function getPasswords() {
-    const res = await fetch(`${apiUrl}/pass?master=${masterPassword}`);
+    const res = await fetch(`${apiUrl}/pass?main=${mainPassword}`);
 
     if (res.ok) {
       return res.json();
@@ -40,7 +40,7 @@
 
   function handleApiEvent(e) {
     e.preventDefault();
-    if (masterPassword) {
+    if (mainPassword) {
       passwords = getPasswords();
     }
   }
@@ -57,13 +57,13 @@
 <main>
   <h1>Welcome to {name}!</h1>
   <p>Generate your passwords.</p>
-  <div class="masterPasswordForm">
+  <div class="mainPasswordForm">
     <form class="form" method="GET" on:submit|preventDefault={handleApiEvent}>
       <input
         type="text"
-        placeholder="Master Password"
+        placeholder="Main Password"
         class="form-field"
-        bind:value={masterPassword}
+        bind:value={mainPassword}
         required
       />
       <button class="btn btn-primary btn-inside">Generate</button>
@@ -299,7 +299,7 @@
     }
   }
 
-  .masterPasswordForm,
+  .mainPasswordForm,
   .customPasswordForm {
     max-width: 800px;
     margin: inherit;

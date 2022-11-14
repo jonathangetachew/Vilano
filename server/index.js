@@ -15,13 +15,13 @@ const corsOptions = {
   optionsSuccessStatus: 200, // for legacy browser support
 };
 
-function generatePassword(master, service) {
+function generatePassword(main, service) {
   const val = {};
 
-  // Append master password to the service name for generating
-  // password based on the master
+  // Append main password to the service name for generating
+  // password based on the main password
   val.service = service;
-  val.password = hash.b64(master + service).slice(0, 20);
+  val.password = hash.b64(main + service).slice(0, 20);
 
   return val;
 }
@@ -47,25 +47,24 @@ app.get('/', (req, res) => {
   res.json({ message: `Hello: I'm working -> ${hash.b64('Hello')}` });
 });
 
-// Generate password for available services based on a master password
+// Generate password for available services based on a main password
 app.get('/pass', async (req, res) => {
-  const { master } = req.query;
+  const { main } = req.query;
   const services = await getServices();
   const response = [];
 
   services
     .sort()
-    .map((service) => response.push(generatePassword(master, service)));
+    .map((service) => response.push(generatePassword(main, service)));
 
   res.json(response);
 });
 
 app.get('/pass/custom', (req, res) => {
-  const { master } = req.query;
-  const customService = req.query.service;
+  const { main, service: customService } = req.query;
   const response = [];
 
-  response.push(generatePassword(master, customService));
+  response.push(generatePassword(main, customService));
 
   res.json(response);
 });

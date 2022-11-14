@@ -2,10 +2,12 @@ import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
+import { terser } from '@el3um4s/rollup-plugin-terser';
+import css from 'rollup-plugin-css-only';
 import replace from '@rollup/plugin-replace';
 import { config } from 'dotenv';
 import sveltePreprocess from 'svelte-preprocess';
+import { spawn } from 'child_process';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -19,8 +21,8 @@ function serve() {
   return {
     writeBundle() {
       if (server) return;
-      // eslint-disable-next-line global-require
-      server = require('child_process').spawn(
+
+      server = spawn(
         'npm',
         ['run', 'start', '--', '--dev'],
         {
@@ -58,13 +60,13 @@ export default {
       // enable svelte-preprocess to work with scss styling
       preprocess: sveltePreprocess(),
       // enable run-time checks when not in production
-      dev: !production,
-      // we'll extract any component CSS out into
-      // a separate file - better for performance
-      css: (css) => {
-        css.write('bundle.css');
-      },
+      compilerOptions: {
+        dev: !production,
+      }
     }),
+    // we'll extract any component CSS out into
+    // a separate file - better for performance
+    css({ output: 'bundle.css' }),
 
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In

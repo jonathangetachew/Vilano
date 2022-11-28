@@ -34,9 +34,9 @@
   .box {
     border-radius: 5px;
     box-shadow: 0px 20px 30px -20px hsl(240, 6%, 7%);
-    padding: 30px;
+    padding: 20px;
     margin: 0 auto;
-    width: 250px;
+    width: 260px;
 
     h2 {
       color: var(--theme-textColor);

@@ -10,3 +10,13 @@ This is my personal project for generating hashed passwords from one master pass
 - [x] jshashes
 - [x] clipboard.js
 - [x] Vercel
+
+## Svelt Upgrade + UI Overhaul Checklist
+
+### Audit & preparation
+
+- [ ] Inspect repository structure and lockfiles
+  - client/package.json
+  - client/rollup.config.js
+  - server/\* (API compatibility)
+- [ ] Create a branch: `feature/svelte-upgrade-ui`

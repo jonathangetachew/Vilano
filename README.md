@@ -121,3 +121,29 @@ This is my personal project for generating hashed passwords from one master pass
 - client/public/manifest.json
 - server/index.js
 - server/vercel.json
+
+## Server-side improvement checklist
+
+Use this checklist to harden the server and avoid exposing secrets or sensitive data.
+
+- [ ] Move all secrets to environment variables.
+- [ ] Use Helmet (security headers) and set a strict Content Security Policy in Express.
+- [ ] Implement rate limiting (express-rate-limit) and request body size limits.
+- [ ] Add `.env` to `.gitignore` and ensure no `.env` or secret files are tracked.
+- [ ] Use the deployment platform's secret manager (Vercel env vars) for production keys.
+- [ ] Replace hard-coded credentials in `server/` with process.env lookups.
+- [ ] Add a startup check that fails fast if required env vars are missing.
+- [ ] Add `.gitignore` entries for logs, local configs, and other sensitive files.
+- [ ] Scan repository for accidentally committed secrets and remove them from history (git filter-repo / BFG).
+- [ ] Add pre-commit secret scanning (git-secrets, truffleHog, or similar) and Husky hooks.
+- [ ] Validate and sanitize all incoming data (Joi, zod, express-validator) to prevent injection.
+- [ ] Enforce HTTPS in production and redirect HTTP → HTTPS.
+- [ ] Configure CORS to only allow expected origins.
+- [ ] Centralize error handling and avoid leaking stack traces in production responses.
+- [ ] Implement graceful shutdown and proper signal handling for the server.
+- [ ] Add structured logging and monitoring (e.g., Winston/ Pino + Sentry) and redact sensitive fields.
+- [ ] Add health and readiness endpoints for deployment checks.
+- [ ] Add CI checks: lint, tests, dependency scan, and secret-scan before merge.
+- [ ] Limit filesystem exposure: do not serve repository root or `.git` and verify static file routes.
+- [ ] Review file permissions on server artifacts and restrict access to secrets/config files.
+- [ ] Add documentation on where secrets live and how to set up local development safely.

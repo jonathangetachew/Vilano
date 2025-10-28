@@ -88,3 +88,17 @@ This is my personal project for generating hashed passwords from one master pass
 
 - [ ] Update manifest and service worker to reflect new UI (client/public/manifest.json, client/public/service-worker.js)
 - [ ] Optimize static assets
+
+### Linting, formatting & tests
+
+- [ ] Run and fix ESLint warnings (client/.eslintrc.cjs)
+- [ ] Apply Prettier (client/.prettierrc.cjs)
+- [ ] Add/update unit or integration tests for critical components
+
+### TypeScript migration
+
+- [ ] If adopting TS, run setup script and incrementally convert components (client/scripts/setupTypeScript.js)
+
+### Documentation & polish
+
+- [ ] Update this README with final steps/status and screenshots

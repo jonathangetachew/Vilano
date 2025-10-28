@@ -33,3 +33,32 @@ This is my personal project for generating hashed passwords from one master pass
 - [ ] Update `client/rollup.config.js` for Svelte v4 plugin API
 - [ ] Ensure environment replacement and output paths remain correct
 - [ ] Verify dev server and build pipeline run locally
+
+### Code migration (Svelte v3 → v4)
+
+- [ ] Search-and-fix breaking changes: lifecycle hooks, transitions, slot API, compiler warnings
+- [ ] Fix components:
+  - client/src/App.svelte
+  - client/src/pages/Home.svelte
+  - client/src/components/PasswordForm.svelte
+  - client/src/components/GeneratedPasswords.svelte
+  - client/src/components/GeneratedPassword.svelte
+- [ ] Run the compiler, fix remaining errors
+
+### Replace ClipboardJS
+
+- [ ] Remove ClipboardJS usage and replace with `navigator.clipboard` where applicable
+  - client/src/main.js
+  - client/src/components/GeneratedPassword.svelte
+
+### Theming, styles & UI overhaul
+
+- [ ] Audit and consolidate theme variables (client/src/themes.js, ThemeProvider)
+- [ ] Create new/responsive layout and components:
+  - Header (Header.svelte)
+  - Theme toggle (ThemeToggle.svelte)
+  - Password input (PasswordForm.svelte)
+  - Results list (GeneratedPasswords.svelte)
+  - Result item (GeneratedPassword.svelte)
+- [ ] Replace image icons with optimized inline SVGs
+- [ ] Update breakpoints and responsive styles

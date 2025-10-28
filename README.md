@@ -62,3 +62,29 @@ This is my personal project for generating hashed passwords from one master pass
   - Result item (GeneratedPassword.svelte)
 - [ ] Replace image icons with optimized inline SVGs
 - [ ] Update breakpoints and responsive styles
+
+### Accessibility & semantics
+
+- [ ] Ensure form controls have labels and ARIA where needed
+- [ ] Use semantic elements and landmarks (header, main, footer)
+- [ ] Verify keyboard navigation and focus states
+
+### Transitions & animations
+
+- [ ] Review and update custom transitions (superFly.js) and built-in transitions
+- [ ] Smooth and accessible animation timings
+
+### State, stores & architecture
+
+- [ ] Consider extracting theme and password state into Svelte stores if UI grows
+
+### Network, error handling & environment
+
+- [ ] Harden fetch calls (timeouts, error states) - TanStack query
+- [ ] Use environment variable replacement for API URLs in build config
+- [ ] Verify server API (server/index.js) works with upgraded client
+
+### PWA & assets
+
+- [ ] Update manifest and service worker to reflect new UI (client/public/manifest.json, client/public/service-worker.js)
+- [ ] Optimize static assets

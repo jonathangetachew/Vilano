@@ -102,3 +102,22 @@ This is my personal project for generating hashed passwords from one master pass
 ### Documentation & polish
 
 - [ ] Update this README with final steps/status and screenshots
+
+## Reference files to inspect
+
+- client/package.json
+- client/rollup.config.js
+- client/src/main.js
+- client/src/App.svelte
+- client/src/pages/Home.svelte
+- client/src/utils/ThemeProvider.svelte
+- client/src/utils/ThemeToggle.svelte
+- client/src/themes.js
+- client/src/components/PasswordForm.svelte
+- client/src/components/GeneratedPasswords.svelte
+- client/src/components/GeneratedPassword.svelte
+- client/src/superFly.js
+- client/public/service-worker.js
+- client/public/manifest.json
+- server/index.js
+- server/vercel.json

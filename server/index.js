@@ -3,7 +3,7 @@ require('custom-env').env(true);
 const express = require('express');
 const cors = require('cors');
 const hashes = require('jshashes');
-const db = require('./db');
+// const db = require('./db');
 
 const allowedUrls = ['http://localhost:8080', 'https://vilano.vercel.app'];
 

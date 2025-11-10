@@ -27,16 +27,28 @@ function generatePassword(main, service) {
 }
 
 async function getServices() {
-  const services = [];
+  const services = [
+    'Apple',
+    'PayPal',
+    'LinkenIn',
+    'Yahoo',
+    'Amazon',
+    'Instagram',
+    'Snapchat',
+    'Twitter',
+    'Facebook',
+    'Microsoft',
+    'Google'
+  ];
 
-  await db
-    .collection('services')
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        services.push(doc.data().service);
-      });
-    });
+  // await db
+  //   .collection('services')
+  //   .get()
+  //   .then((querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //       services.push(doc.data().service);
+  //     });
+  //   });
 
   return services;
 }
